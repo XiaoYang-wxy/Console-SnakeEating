@@ -12,13 +12,13 @@ using std::string;
 const int M = 30, N = 30, max_score = 20, start_length = 3, sleep = 200;
 const string head = "●", body = "○", food = "★", wall = "■", land = "▓ ";
 
-void gotoxy(short, short);
-void initial();
+void gotoxy(short, short);//移动光标到相对窗口(x,y)坐标的位置
+void initial();//初始化界面函数
 class state
 {
 private:
-	short length, snake[(M - 2) * (N - 2)][2];
-	char direction, food[2];
+	short length, snake[(M - 2) * (N - 2)][2], food[2];//蛇长度，蛇坐标，食物坐标
+	char direction;//移动方向，有wasd四种方向
 	void food_restart();//重新生成食物，不与蛇身重合
 public:
 	state();
