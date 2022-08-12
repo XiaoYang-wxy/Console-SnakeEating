@@ -1,6 +1,7 @@
 #include "state.h"
 std::random_device rd;
 
+//移动光标函数
 void gotoxy(short x, short y)
 {
 	_COORD position = { x,y };
@@ -8,6 +9,7 @@ void gotoxy(short x, short y)
 	SetConsoleCursorPosition(hOut, position);
 }
 
+//初始化界面函数
 void initial()
 {
 	for (short i = 0; i < M * 2; i += 2)
@@ -76,6 +78,7 @@ state::state()
 	food[0] = rd() % (M - 4) + 2, food[1] = rd() % (N - 5) + 3;
 }
 
+//重新生成食物函数，可以保证食物不与蛇重合
 void state::food_restart()
 {
 	int m, n;
@@ -97,6 +100,7 @@ void state::food_restart()
 	food[0] = m, food[1] = n;
 }
 
+//蛇移动函数
 int remove(state* a, char c)
 {
 	int headw = a->snake[0][0], headh = a->snake[0][1];
@@ -144,6 +148,7 @@ int remove(state* a, char c)
 		return 0;
 }
 
+//判断蛇是否越界或者吃到自己
 int judge(state* a)
 {
 	int k = 0;
@@ -165,6 +170,7 @@ int judge(state* a)
 	return k;
 }
 
+//蛇移动后重新绘制蛇
 void putout_snake(state* a, int eat)
 {
 	gotoxy(2 * a->food[0], a->food[1]);
@@ -184,6 +190,7 @@ void putout_snake(state* a, int eat)
 	gotoxy(M * 2, 25);
 }
 
+//关卡模式，得到20分即通关
 void level_mode(state* a)
 {
 	int eat = 0;
@@ -244,6 +251,7 @@ void level_mode(state* a)
 	}
 }
 
+//无尽模式，蛇长度无上限
 void endless_mode(state* a)
 {
 	int eat = 0;
